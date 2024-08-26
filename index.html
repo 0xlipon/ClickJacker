@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickjacking PoC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+        }
+        h2, h3 {
+            color: #00ff00;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #00ff00;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+        .input-box {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            max-width: 800px;
+            padding: 8px;
+            border: 1px solid #00ff00;
+            border-radius: 4px;
+            background-color: #1a1a1a;
+            color: #00ff00;
+        }
+        input[type="text"]::placeholder {
+            color: #666;
+        }
+        iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            border: 2px solid #00ff00;
+            margin-top: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Clickjacking PoC</h2>
+        <h3>Created by <a href="https://github.com/0xlipon" target="_blank">@0xlipon</a></h3>
+        
+        <div class="input-box">
+            <label for="targetURL">Target URL:</label>
+            <input type="text" id="targetURL" placeholder="Enter the target endpoint URL">
+        </div>
+        
+        <button onclick="loadTarget()">Load Target URL</button>
+        <hr>
+        <iframe id="targetFrame" src="" title="Clickjacking PoC"></iframe>
+    </div>
+
+    <script>
+        function loadTarget() {
+            var url = document.getElementById('targetURL').value;
+            if (url) {
+                document.getElementById('targetFrame').src = url;
+            } else {
+                alert('Please enter a target URL.');
+            }
+        }
+    </script>
+</body>
+</html>
