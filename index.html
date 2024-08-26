@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clickjacking/Framing Vulnerability</title>
+    <title>Clickjacker</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,12 +23,17 @@
             justify-content: center;
             align-items: center;
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
         }
-        h2, h3 {
+        h2 {
             color: #00ff00;
             margin: 0;
-            margin-bottom: 10px;
+            margin-bottom: 5px; /* Reduced space below the h2 */
+        }
+        p {
+            color: #00ff00;
+            margin: 0;
+            margin-bottom: 15px; /* Adjusted space below the p */
         }
         a {
             color: #00ff00;
@@ -57,7 +62,7 @@
         }
         input[type="text"] {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             padding: 8px;
             border: 1px solid #00ff00;
             border-radius: 4px;
@@ -68,9 +73,9 @@
             color: #666;
         }
         iframe {
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
+            width: 90%;
+            max-width: 900px; /* Adjusted iframe width */
+            height: 350px;    /* Adjusted iframe height */
             border: 2px solid #00ff00;
             margin-top: 10px;
             background-color: #fff;
@@ -83,13 +88,12 @@
         }
         .loading-bar {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px; /* Match the iframe width */
             height: 5px;
             background-color: #333;
             border-radius: 5px;
             margin-top: 10px;
             position: relative;
-            overflow: hidden;
         }
         .loading-bar::after {
             content: '';
@@ -109,8 +113,8 @@
 </head>
 <body>
     <div class="container">
-        <h2>Clickjacker</h2>
-        <h3>Created by <a href="https://github.com/0xlipon" target="_blank">@0xlipon</a></h3>
+        <h2>Clickjacking/Framing Vulnerability</h2>
+        <p>Created by <a href="https://github.com/0xlipon" target="_blank">@0xlipon</a></p>
         
         <div class="input-box">
             <label for="targetURL">Target URL:</label>
@@ -122,7 +126,6 @@
         <div id="loadingMessage" class="loading" style="display: none;">Loading...</div>
         <div id="loadingBar" class="loading-bar" style="display: none;"></div>
         <iframe id="targetFrame" src="" title="Clickjacking PoC"></iframe>
-        <p class="loading">Note: Some websites may have protections against clickjacking, and may not load properly.</p>
     </div>
 
     <script>
