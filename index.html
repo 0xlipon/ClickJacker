@@ -68,20 +68,48 @@
             color: #666;
         }
         iframe {
-            width: 100%;
-            max-width: 800px;
-            height: 500px;
+            width: 90%;
+            max-width: 900px; /* Adjusted iframe width */
+            height: 350px;    /* Adjusted iframe height */
             border: 2px solid #00ff00;
             margin-top: 10px;
             background-color: #fff;
             display: block;
+        }
+        .loading {
+            color: #00ff00;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .loading-bar {
+            width: 100%;
+            max-width: 600px; /* Match the iframe width */
+            height: 5px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+            position: relative;
+        }
+        .loading-bar::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 100%;
+            background-color: #00ff00;
+            border-radius: 5px;
+            animation: loading 2s infinite;
+        }
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Clickjacker</h2>
-        <h3>Created by <a href="https://m.youtube.com/@lulzsecr" target="_blank">@Coffin</a></h3>
+        <h3>Created by <a href="https://github.com/0xlipon" target="_blank">@0xlipon</a></h3>
         
         <div class="input-box">
             <label for="targetURL">Target URL:</label>
@@ -90,19 +118,39 @@
         
         <button onclick="loadTarget()">Load Target URL</button>
         <hr>
+        <div id="loadingMessage" class="loading" style="display: none;">Loading...</div>
+        <div id="loadingBar" class="loading-bar" style="display: none;"></div>
         <iframe id="targetFrame" src="" title="Clickjacking PoC"></iframe>
     </div>
 
     <script>
         function loadTarget() {
-            var url = document.getElementById('targetURL').value;
+            var url = document.getElementById('targetURL').value.trim();
+            var iframe = document.getElementById('targetFrame');
+            var loadingMessage = document.getElementById('loadingMessage');
+            var loadingBar = document.getElementById('loadingBar');
+
             if (url) {
-                // Check for URL validity
                 try {
+                    if (!/^https?:\/\/.+/.test(url)) {
+                        throw new Error('URL must start with http:// or https://');
+                    }
                     new URL(url);
-                    document.getElementById('targetFrame').src = url;
+                    
+                    // Show loading message and bar
+                    loadingMessage.style.display = 'block';
+                    loadingBar.style.display = 'block';
+                    
+                    // Set iframe src
+                    iframe.src = url;
+                    
+                    // Hide loading message and bar after 10 seconds (if iframe is still loading)
+                    setTimeout(function() {
+                        loadingMessage.style.display = 'none';
+                        loadingBar.style.display = 'none';
+                    }, 10000);  // 10 seconds delay
                 } catch (e) {
-                    alert('Invalid URL. Please enter a valid URL.');
+                    alert('Invalid URL. Please enter a valid URL starting with http:// or https://.');
                 }
             } else {
                 alert('Please enter a target URL.');
