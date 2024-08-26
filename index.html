@@ -23,7 +23,7 @@
             justify-content: center;
             align-items: center;
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
         }
         h2, h3 {
             color: #00ff00;
@@ -57,7 +57,7 @@
         }
         input[type="text"] {
             width: 100%;
-            max-width: 800px;
+            max-width: 600px;
             padding: 8px;
             border: 1px solid #00ff00;
             border-radius: 4px;
@@ -68,9 +68,9 @@
             color: #666;
         }
         iframe {
-            width: 90%;
-            max-width: 900px; /* Adjusted iframe width */
-            height: 350px;    /* Adjusted iframe height */
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
             border: 2px solid #00ff00;
             margin-top: 10px;
             background-color: #fff;
@@ -83,12 +83,13 @@
         }
         .loading-bar {
             width: 100%;
-            max-width: 600px; /* Match the iframe width */
+            max-width: 500px;
             height: 5px;
             background-color: #333;
             border-radius: 5px;
             margin-top: 10px;
             position: relative;
+            overflow: hidden;
         }
         .loading-bar::after {
             content: '';
@@ -121,6 +122,7 @@
         <div id="loadingMessage" class="loading" style="display: none;">Loading...</div>
         <div id="loadingBar" class="loading-bar" style="display: none;"></div>
         <iframe id="targetFrame" src="" title="Clickjacking PoC"></iframe>
+        <p class="loading">Note: Some websites may have protections against clickjacking, and may not load properly.</p>
     </div>
 
     <script>
