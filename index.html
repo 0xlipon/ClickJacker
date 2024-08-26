@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clickjacking PoC</title>
+    <title>Clickjacking/Framing Vulnerability</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -70,21 +70,22 @@
         iframe {
             width: 100%;
             max-width: 800px;
-            height: 400px;
+            height: 500px;
             border: 2px solid #00ff00;
             margin-top: 10px;
             background-color: #fff;
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Clickjacking PoC</h2>
-        <h3>Created by <a href="https://github.com/0xlipon" target="_blank">@0xlipon</a></h3>
+        <h2>Clickjacker</h2>
+        <h3>Created by <a href="https://m.youtube.com/@lulzsecr" target="_blank">@Coffin</a></h3>
         
         <div class="input-box">
             <label for="targetURL">Target URL:</label>
-            <input type="text" id="targetURL" placeholder="Enter the target endpoint URL">
+            <input type="text" id="targetURL" placeholder="Enter the target URL">
         </div>
         
         <button onclick="loadTarget()">Load Target URL</button>
@@ -96,7 +97,13 @@
         function loadTarget() {
             var url = document.getElementById('targetURL').value;
             if (url) {
-                document.getElementById('targetFrame').src = url;
+                // Check for URL validity
+                try {
+                    new URL(url);
+                    document.getElementById('targetFrame').src = url;
+                } catch (e) {
+                    alert('Invalid URL. Please enter a valid URL.');
+                }
             } else {
                 alert('Please enter a target URL.');
             }
